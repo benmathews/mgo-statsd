@@ -23,12 +23,12 @@ unauthorized fashion to a mongodb instance on localhost.
 
 Launch a container using the image on Docker Hub built from this source repo:
 ```
-$ docker run -dit --name mgo-statsd scullxbones/mgo-statsd [optional parameters]
+$ docker run -dit --name mgo-statsd se-k8s-master.vivintsky.com:5000/mgo-statsd:x.x [optional parameters]
 ```
 
 To build a local image from this repo using:
 ```
-$ docker build -t mgo-statsd .
+$ docker build -t se-k8s-master.vivintsky.com:5000/mgo-statsd:x.x .
 ```
 
 ### Docker-based development stack using Docker Compose

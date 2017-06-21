@@ -1,0 +1,94 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    run: platformjob-mgo-statsd
+  name: platformjob-mgo-statsd
+spec:
+  selector:
+    matchLabels:
+      run: platformjob-mgo-statsd
+  template:
+    metadata:
+      labels:
+        run: platformjob-mgo-statsd
+    spec:
+      containers:
+      - args:
+        - -statsd_env
+        - PROD
+        - -statsd_cluster
+        - SE
+        - -statsd_port
+        - "8126"
+        - -mongo_user
+        - oplogFollower
+        - -mongo_pass
+        - rioo0uqHh6nV08QHVNU
+        - -mongo_address
+        - se-mongo1a.vivintsky.com:10010
+        - -mongo_address
+        - se-mongo1b.vivintsky.com:10010
+        - -mongo_address
+        - se-mongo2a.vivintsky.com:10020
+        - -mongo_address
+        - se-mongo2b.vivintsky.com:10020
+        - -mongo_address
+        - se-mongo3a.vivintsky.com:10030
+        - -mongo_address
+        - se-mongo3b.vivintsky.com:10030
+        - -mongo_address
+        - se-mongo4a.vivintsky.com:10040
+        - -mongo_address
+        - se-mongo4b.vivintsky.com:10040
+        - -mongo_address
+        - se-mongo5a.vivintsky.com:10050
+        - -mongo_address
+        - se-mongo5b.vivintsky.com:10050
+        - -mongo_address
+        - se-mongo6a.vivintsky.com:10060
+        - -mongo_address
+        - se-mongo6b.vivintsky.com:10060
+        - -mongo_address
+        - se-mongo7a.vivintsky.com:10070
+        - -mongo_address
+        - se-mongo7b.vivintsky.com:10070
+        - -mongo_address
+        - se-mongo8a.vivintsky.com:10080
+        - -mongo_address
+        - se-mongo8b.vivintsky.com:10080
+        - -mongo_address
+        - se-mongo9a.vivintsky.com:10090
+        - -mongo_address
+        - se-mongo9b.vivintsky.com:10090
+        - -mongo_address
+        - se-mongo10a.vivintsky.com:10100
+        - -mongo_address
+        - se-mongo10b.vivintsky.com:10100
+        - -mongo_address
+        - se-mongo11a.vivintsky.com:10110
+        - -mongo_address
+        - se-mongo11b.vivintsky.com:10110
+        - -mongo_address
+        - se-mongo12a.vivintsky.com:10120
+        - -mongo_address
+        - se-mongo12b.vivintsky.com:10120
+        - -mongo_address
+        - se-mongo13a.vivintsky.com:10130
+        - -mongo_address
+        - se-mongo13b.vivintsky.com:10130
+        image: se-k8s-master.vivintsky.com:5000/mgo-statsd:1.0
+        name: mgo-statsd
+      - image: se-k8s-master.vivintsky.com:5000/statsgodrun:1
+        name: statsgod
+        resources:
+          requests:
+            cpu: 150m
+        volumeMounts:
+        - mountPath: /config
+          name: config-volume
+      volumes:
+      - configMap:
+          defaultMode: 420
+          name: statsgodconfig
+        name: config-volume
